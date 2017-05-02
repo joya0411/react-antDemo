@@ -21,14 +21,14 @@ export default class Root extends React.Component{
         return (
           <div>
               <MediaQuery minDeviceWidth={1224}>
-                  <Router>
+                  <Router history={hashHistory}>
                       <Route path="/" component={PCIndex}></Route>
                       <Route path="detail/:uniquekey" component={PCNewsDetails}></Route>
                       <Route path="usercenter" component={PCUserCenter}></Route>
                   </Router>
               </MediaQuery>
               <MediaQuery maxDeviceWidth={1224}>
-                  <Router>
+                  <Router history={hashHistory}>
                       <Route path="/" component={MobileIndex}></Route>
                       <Route path="detail/:uniquekey" component={MobileNewsDetails}></Route>
                       <Route path="usercenter" component={MobileUserCenter}></Route>
