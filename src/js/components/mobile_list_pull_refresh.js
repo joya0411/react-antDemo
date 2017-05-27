@@ -33,7 +33,6 @@ export default class MobileList extends React.Component{
             })
         });
     };
-    
     handleRefresh(resolve,reject){
         var myFetchOptions = {
             method:'GET'

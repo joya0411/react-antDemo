@@ -35,11 +35,10 @@ export default class MobileList extends React.Component{
                 news: json
             })
         });
-    };
+    }
+    //点击加载更多，执行的函数
     handleLoadMore(resolve){
-        //点击加载更多，执行的函数
-
-        setTimeout(()=>{
+        // setTimeout(()=>{
             var count = this.state.count;
 
             this.setState({
@@ -61,11 +60,12 @@ export default class MobileList extends React.Component{
             });
 
             //结束关闭loading
-            resolve();
+            resolve && resolve();
 
-        },2e3);
+        // },2000);
         
     };
+    //上拉刷新
     handleRefresh(resolve,reject){
         setTimeout(()=>{
             this.setState({
@@ -97,7 +97,25 @@ export default class MobileList extends React.Component{
                 initializing:2 //进度结束
             });
         },2e3);
+
+        this.autoRefresh();
+
     };
+    //自动刷新
+    autoRefresh(){
+        let timeoutId = null;
+        let tloaderBtn = document.getElementsByClassName('tloader-btn')[0];
+        window.addEventListener('scroll',function(){
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(()=>{
+                let winHeight = window.screen.height;
+                let tloaderHeight = tloaderBtn.getBoundingClientRect().top;
+                if ( tloaderHeight && tloaderHeight<winHeight ) {
+                    this.handleLoadMore();
+                }
+            },50);
+        }.bind(this),false);
+    }
     render(){
         const {initializing,hasMore,autoLoadMore} = this.state;
         const {news} = this.state;
